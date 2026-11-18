@@ -1,0 +1,19 @@
+npm run audit -- request-chase
+  engagement  code  name                    owner                  due_date    status    days_late
+  ----------  ----  ----------------------  ---------------------  ----------  --------  ---------
+  HBR26       R01   Bank confirmation       Client finance lead    2026-11-11  open      7        
+  HBR26       R02   Inventory count sheets  Client warehouse lead  2026-11-15  received  3        
+  KOW26       R01   Grant agreement         Trust administrator    2026-11-19  open      -1       
+
+npm run audit -- review-queue
+  engagement  code  name                    owner        risk    status    due_date    open_notes  prepared_by  reviewed_by
+  ----------  ----  ----------------------  -----------  ------  --------  ----------  ----------  -----------  -----------
+  HBR25       F900  Final file index        Niko Evans   medium  prepared  2026-11-07  0           Niko Evans              
+  HBR26       C100  Cash confirmation       Aroha Blake  high    open      2026-11-14  0                                   
+  HBR26       I200  Inventory count review  Aroha Blake  high    prepared  2026-11-20  1           Aroha Blake             
+  KOW26       G100  Grant conditions        Niko Evans   medium  open      2026-11-23  0                                   
+
+npm run audit -- assembly-due
+  code   name                      report_date  assembly_due  retention_until  status
+  -----  ------------------------  -----------  ------------  ---------------  ------
+  HBR25  Harbour Foods prior year  2026-09-09   2026-11-08    2031-10-23       open  

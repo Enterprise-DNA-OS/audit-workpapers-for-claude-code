@@ -1,115 +1,93 @@
-<h1 align="center">Audit Workpapers for Claude Code</h1>
+# Audit Workpapers for Claude Code
 
-<p align="center">
-  <strong>The open-source audit workpaper desk that is just a database and Claude Code.</strong>
-</p>
+Your engagement workpapers, evidence requests and review points in a database you own. A coordination desk for qualified audit teams, with preparation, review and file assembly records.
 
-<p align="center">
-  Created by <a href="https://www.enterprisedna.co"><strong>Enterprise DNA</strong></a>. Free and open source. Works with Claude Code, Codex, OpenCode or Cursor.
-</p>
+## Three ways to use it
 
-<!-- three-doors -->
-<table align="center">
-  <tr>
-    <td align="center"><strong>Do it yourself</strong><br/>Clone it, run it, own it. Free, MIT.<br/><a href="#quick-start">Quick start</a></td>
-    <td align="center"><strong>We customise it</strong><br/>Your fields, your rules, your AuditFile data brought across.<br/><a href="https://enterprisedna.co/omni/book/?utm_source=github&utm_medium=readme&utm_campaign=auditfile">Book a call</a></td>
-    <td align="center"><strong>We run it for you</strong><br/>Installed, connected and operated inside Omni. Setup fee, then a retainer.<br/><a href="https://enterprisedna.co/omni/instead-of/auditfile?utm_source=github&utm_medium=readme&utm_campaign=auditfile">How it works</a></td>
-  </tr>
-</table>
+**Do it yourself.** Free under MIT. Install, try the fictional demo and map your exports. Works with Claude Code, Codex, OpenCode or Cursor. Hosting and your coding agent are separate costs.
 
-<p align="center">
-  <a href="#what-is-this">What is this</a> &bull;
-  <a href="#why-no-front-end">Why no front end</a> &bull;
-  <a href="#quick-start">Quick start</a> &bull;
-  <a href="#the-commands">Commands</a> &bull;
-  <a href="#instead-of-auditfile">Instead of AuditFile</a> &bull;
-  <a href="#want-it-installed-and-run-for-you">Installed for you</a> &bull;
-  <a href="#license">License</a>
-</p>
+**We customise it.** Enterprise DNA maps your AuditFile data, adds your fields and firm rules, and builds screens or connections for your team. A different stack is available. One setup fee, then a retainer.
 
-<p align="center">
-  <img src="https://img.shields.io/badge/Node-20+-339933?style=flat-square" alt="Node 20+" />
-  <img src="https://img.shields.io/badge/PostgreSQL-any-336791?style=flat-square" alt="PostgreSQL" />
-  <img src="https://img.shields.io/badge/PGlite-embedded-3ecf8e?style=flat-square" alt="PGlite" />
-  <img src="https://img.shields.io/badge/License-MIT-yellow?style=flat-square" alt="MIT License" />
-</p>
+**We run it for you.** Omni by Enterprise DNA installs, connects and operates your version, with access, backups and ongoing changes agreed for your firm. One setup fee, then a monthly retainer. [Book a 30-minute call](https://enterprisedna.co/omni/book?offer=replace-software&utm_campaign=auditfile&utm_medium=github).
 
----
+## Start with fictional records
 
-## What is this
-
-Audit Workpapers for Claude Code does the job you pay AuditFile for, as a Postgres database and a set of agent commands. There is no web front end. You open the folder in [Claude Code](https://claude.com/claude-code) (or Codex, OpenCode, Cursor: see `AGENTS.md`) and ask for what you want in plain language. It runs the right query, and it can answer questions the AuditFile dashboard cannot.
-
-<!-- TODO(author): the annual bill. One sentence: what a 10 to 50 person business typically pays AuditFile per year, all in, with a source. -->
-
-Want the same thing with a web front end, or built on a different stack? That is a customisation, and it is exactly what Enterprise DNA does: [book a call](https://enterprisedna.co/omni/book/?utm_source=github&utm_medium=readme&utm_campaign=auditfile).
-
-<!-- TODO(author): two or three sentences on what this specific product covers and who it is for. -->
-
-## Why no front end
-
-- The front end was only ever there because the database was hard to talk to. That is no longer true.
-- Your data sits in plain Postgres tables you own. Any tool can read them. No export, no lock-in.
-- No seats, no tiers, no add-ons. Read [docs/why-no-front-end.md](docs/why-no-front-end.md) for the honest trade-offs too.
-
-## Quick start
-
-Sixty seconds, no database install (an embedded Postgres runs inside Node):
+Node 20 or 22 on Windows or Linux.
 
 ```bash
-git clone https://github.com/Enterprise-DNA-OS/audit-workpapers-for-claude-code.git
-cd audit-workpapers-for-claude-code
 npm install
+npm test
 npm run demo
 ```
 
-Then open the folder in Claude Code and type a slash command. <!-- TODO(author): name the first command to try. -->
+Tests use a temporary database and remove it. The demo uses a separate temporary database, ignores DATABASE_URL, and prints the location of its reports. It leaves that fictional workspace for inspection.
 
-### Use it with your own Postgres or Supabase
+For a persistent local demonstration:
 
-Copy `.env.example` to `.env`, set `DATABASE_URL`, then `npm run migrate`. Same commands, shared data, no per-seat fee.
-
-## The commands
-
-<!-- TODO(author): a table of the slash commands in .claude/commands and what each one does. -->
-
-| Command | What it does |
-|---|---|
-| `/...` | ... |
-
-## Instead of AuditFile
-
-<!-- TODO(author): how to bring data across from AuditFile; link docs/replace-auditfile.md -->
-
-## Architecture
-
-```
-audit-workpapers-for-claude-code/
-  CLAUDE.md                 how the operator wants this run (routing table + house rules)
-  AGENTS.md                 the same, for Codex / OpenCode / Cursor / Gemini CLI
-  .claude/commands/         the slash commands
-  scripts/                  the CLI the commands drive
-  scripts/lib/db.mjs        one adapter: DATABASE_URL (pg) or embedded PGlite
-  supabase/migrations/      plain SQL schema
-  supabase/seed.sql         demo data
-  docs/                     the thesis and the migration guide
+```bash
+npm run migrate
+npm run seed
+npm run audit -- attention
+npm run view
+npm run docs
 ```
 
-## Built for coding agents
+For real records, migrate without seeding. DATABASE_URL selects PostgreSQL; otherwise DATA_DIR selects a local PGlite folder. Shared database seeding requires --demo-database. Read the access section before adding client information.
 
-The database, CLI and command recipes work with Claude Code, Codex, OpenCode or Cursor. Ask your coding agent for a new command and have it implement and test the change against the same records.
+## What ships
 
-## Contributing
+31 CLI commands and 33 slash commands. Three dashboards show the week, preparation and review, and documentation checks. Three document types produce client evidence request lists, review memos and file assembly indexes as branded HTML. Change the business name, colours and logo in brand.json.
 
-Issues and pull requests are welcome. Keep the shape: plain SQL, a small CLI, a slash command per recurring job, no front end.
+A workpaper requires evidence, a procedure record and a human conclusion before preparation. Independent review requires a different actor and no open review points. File assembly requires reviewed workpapers, decided requests, resolved points and the firm's report, assembly and retention dates. Assembly locks the records. Reopening needs a reason, and a revision clears the current sign-offs while keeping their history.
 
-## Want it installed and run for you?
+These are workspace controls. The software does not perform an audit, supply licensed methodology, issue an audit opinion, establish evidence sufficiency or certify compliance. An evidence reference is not a copy of the underlying document. Qualified people remain responsible for those decisions.
 
-Enterprise DNA installs Audit Workpapers for Claude Code for your business, migrates your AuditFile data, connects it to the rest of your tools, and runs it for you as part of **Omni**, our managed Command Center. One setup fee, then a monthly retainer.
+## Bring AuditFile records across
 
-- Book a call: [enterprisedna.co/omni/book](https://enterprisedna.co/omni/book/?offer=replace-software&utm_source=github&utm_medium=readme&utm_campaign=auditfile)
-- Read more: [enterprisedna.co/omni/instead-of/auditfile](https://enterprisedna.co/omni/instead-of/auditfile?utm_source=github&utm_medium=readme&utm_campaign=auditfile)
+```bash
+npm run audit -- import auditfile ./examples/auditfile --mapping=./examples/auditfile-map.json --batch=demo --actor="Operator" --dry-run
+```
 
-## License
+Preview, reconcile, then repeat without --dry-run. AuditFile says it can export customer data, but it does not publish a fixed export layout. Request the export, convert the relevant spreadsheets to CSV and explicitly map the columns. Included files are synthetic fixtures. Historical sign-offs, attachments, locked files and licensed templates need separate preservation and review. Incoming workpapers start unreviewed. [Full switching guide](docs/replace-auditfile.md).
 
-MIT. Copyright (c) 2026 Enterprise DNA.
+## Ten questions to ask today
+
+Run npm run audit -- insights. Each question below runs a real query. AuditFile also provides reporting; this is not a claim that its reports cannot answer similar questions.
+
+1. Which high-risk workpapers still lack evidence?
+2. Which prepared workpapers still have open review points?
+3. Which evidence owners have overdue requests?
+4. Which engagements are due soon with unresolved evidence?
+5. Which files passed their assembly deadline?
+6. Which received requests still await acceptance?
+7. Who has prepared work waiting more than a week?
+8. Which significant review points remain unresolved?
+9. Which reported engagements have no retention decision?
+10. Which engagement has the most unfinished work per partner?
+
+## Your first hour: ten things to ask for
+
+1. Show the engagements due in the next fortnight.
+2. Find overdue evidence by its owner.
+3. Read the full Harbour Foods engagement history.
+4. Show the high-risk workpapers missing evidence.
+5. List prepared work waiting for review.
+6. Find unresolved significant review points.
+7. Draft the client evidence request list for my review.
+8. Preview our mapped export and reconcile its counts.
+9. Put our name and colours on the file assembly index.
+10. Add our internal review field with /customise and a new report with /new-view.
+
+## Operating boundary
+
+This is a trusted operator workspace. Actor labels are self-declared attribution, not sign-in or verified signatures. Use operating-system access controls locally. Before shared use, configure authenticated identities, least-privilege database roles, document-store access, backups and recovery checks. Public database access is revoked and row security is enabled with no public policies. A database owner can bypass these controls, so separate administrative access from normal operation.
+
+No document is sent, no payment is made and no record is deleted. The history keeps before and after values but is not a tamper-proof archive against the database owner. Keep original evidence, exported files and retention holds in your controlled archive.
+
+## References and checks
+
+[Commands](docs/cli.md) · [Documentation rules](docs/compliance.md) · [Scope and screens](docs/why-no-front-end.md) · [Research and candidate scores](docs/research.md).
+
+The test suite exercises every command, invalid transitions, actor attribution, locked records, import preview/replay/rollback, CSV edge cases, complete exports and escaped HTML. The manual CI workflow covers Windows, Linux and a disposable PostgreSQL database. Consult its actual results before claiming a platform passed.
+
+MIT. Copyright (c) 2026 Enterprise DNA. Not affiliated with AuditFile. No vendor methodology or customer information is included.

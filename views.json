@@ -1,13 +1,35 @@
 [
   {
     "name": "week",
-    "title": "This week",
-    "subtitle": "Audit Workpapers for Claude Code: what needs attention, rendered by npm run view",
+    "title": "Weekly engagement desk",
     "sections": [
       {
-        "title": "Needs attention",
-        "note": "TODO(author): point this at the industry's attention view (overdue, stuck, quiet).",
-        "sql": "select 'replace me' as item, 'TODO(author)' as why"
+        "title": "Engagement progress",
+        "sql": "select code,name,partner,due_date,unreviewed,outstanding_requests,open_notes from engagement_progress order by due_date"
+      }
+    ]
+  },
+  {
+    "name": "review",
+    "title": "Preparation and review",
+    "sections": [
+      {
+        "title": "Workpaper queue",
+        "sql": "select engagement,code,name,owner,risk,status,due_date,open_notes from review_queue order by due_date"
+      },
+      {
+        "title": "Client evidence chase",
+        "sql": "select engagement,code,name,owner,status,due_date,days_late from request_chase order by due_date"
+      }
+    ]
+  },
+  {
+    "name": "documentation",
+    "title": "Documentation checks",
+    "sections": [
+      {
+        "title": "Review prompts, not an audit opinion",
+        "sql": "select kind,reference,rule,detail from documentation_checks order by reference,rule"
       }
     ]
   }

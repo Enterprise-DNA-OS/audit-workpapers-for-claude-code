@@ -1,11 +1,60 @@
 [
   {
-    "name": "example",
-    "title": "TODO(author): the first document this industry must produce",
-    "for_each": "select gen_random_uuid() as id, 'Example' as name",
-    "file": "name",
+    "name": "request-list",
+    "title": "Draft client evidence request",
+    "for_each": "select id,code from engagements order by code",
+    "file": "code",
     "sections": [
-      { "title": "Details", "sql": "select 'replace me' as item, $1::text as record_id" }
+      {
+        "title": "Engagement",
+        "sql": "select code,name,partner,period_end,report_date,assembly_due,retention_until,status from engagements where id=$1",
+        "layout": "record",
+        "note": "Internal record for qualified reviewer approval. No audit opinion is generated."
+      },
+      {
+        "title": "Outstanding requests",
+        "sql": "select code,name,owner,due_date,status from requests where engagement_id=$1 and status not in ('accepted','waived') order by due_date"
+      }
+    ]
+  },
+  {
+    "name": "review-memo",
+    "title": "Draft engagement review memo",
+    "for_each": "select id,code from engagements order by code",
+    "file": "code",
+    "sections": [
+      {
+        "title": "Engagement",
+        "sql": "select code,name,partner,period_end,report_date,assembly_due,retention_until,status from engagements where id=$1",
+        "layout": "record",
+        "note": "Internal record for qualified reviewer approval. No audit opinion is generated."
+      },
+      {
+        "title": "Workpapers",
+        "sql": "select code,name,owner,risk,status,reviewed_by,review_extent from workpapers where engagement_id=$1 order by code"
+      },
+      {
+        "title": "Review notes",
+        "sql": "select name,owner,severity,status,resolution from review_notes where engagement_id=$1 order by due_date"
+      }
+    ]
+  },
+  {
+    "name": "assembly-index",
+    "title": "Draft file assembly index",
+    "for_each": "select id,code from engagements order by code",
+    "file": "code",
+    "sections": [
+      {
+        "title": "Engagement",
+        "sql": "select code,name,partner,period_end,report_date,assembly_due,retention_until,status from engagements where id=$1",
+        "layout": "record",
+        "note": "Internal record for qualified reviewer approval. No audit opinion is generated."
+      },
+      {
+        "title": "Evidence index",
+        "sql": "select code,name,evidence_ref,prepared_by,prepared_at,reviewed_by,reviewed_at,review_extent from workpapers where engagement_id=$1 order by code"
+      }
     ]
   }
 ]

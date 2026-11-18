@@ -1,0 +1,29 @@
+{
+  "engagements": {
+    "code": "Engagement Code",
+    "name": "Engagement",
+    "client": "Client",
+    "partner": "Partner",
+    "period_end": "Period End",
+    "due_date": "Due",
+    "jurisdiction": "Jurisdiction"
+  },
+  "workpapers": {
+    "engagement": "Engagement Code",
+    "code": "Reference",
+    "name": "Workpaper",
+    "owner": "Owner",
+    "assertion": "Assertion",
+    "risk": "Risk",
+    "due_date": "Due",
+    "evidence_ref": "Evidence"
+  },
+  "requests": {
+    "engagement": "Engagement Code",
+    "code": "Reference",
+    "name": "Request",
+    "owner": "Owner",
+    "due_date": "Due",
+    "evidence_ref": "Evidence"
+  }
+}
